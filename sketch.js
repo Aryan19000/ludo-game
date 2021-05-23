@@ -160,6 +160,14 @@ function draw(){
 
     highlight_turn()
     drawSprites();
+
+    if(gScore==4 || bScore==4){
+        textSize(30);
+        stroke("black");
+        strokeWeight(5);
+        fill("white");
+        text("GAME OVER", width/2-100, height/2+10);
+    }
 }
 
 function setPosition(){
@@ -192,26 +200,31 @@ function setPosition(){
 
 var piecee=gPiece;
 function drawDice(dice){
-    if(green_turn===true || blue_turn===true){
-        if(gpMoved===true || bpMoved===true){
-            if(mousePressedOver(dice)){
-                dice.scale=0.3;
-                dice.changeAnimation("rolling", roll);
-                randomNum=Math.round(random(1, 6));
-                setTimeout(displayNumber, 1000);
-                setTimeout(checkNumberAndMovePiece, 1500);
-                //setTimeout(highlight_turn, 1000)
-                if(green_turn===true){
-                    green_turn=false;
-                    blue_turn=true;
-                    piecee=gPiece;
-                }else if(blue_turn===true){
-                    blue_turn=false;
-                    green_turn=true;
-                    piecee=bPiece;
+    if(gScore!==4 && bScore!==4){
+        if(green_turn===true || blue_turn===true){
+            if(gpMoved===true || bpMoved===true){
+                if(mousePressedOver(dice)){
+                    dice.scale=0.3;
+                    dice.changeAnimation("rolling", roll);
+                    randomNum=Math.round(random(1, 6));
+                    setTimeout(displayNumber, 1000);
+                    setTimeout(checkNumberAndMovePiece, 1500);
+                    //setTimeout(highlight_turn, 1000)
+                    if(green_turn===true){
+                        green_turn=false;
+                        blue_turn=true;
+                        piecee=gPiece;
+                    }else if(blue_turn===true){
+                        blue_turn=false;
+                        green_turn=true;
+                        piecee=bPiece;
+                    }
                 }
             }
         }
+    }else if(gScore==4 || bScore==4){
+        textSize(30);
+        text("GAME OVER", width/2-100, height/2);
     }
     function displayNumber(){
         switch(randomNum){
